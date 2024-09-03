@@ -1,8 +1,7 @@
 <template>
-    <router-view></router-view>
+    <div id="login">vite</div>
 </template>
 <script>
-
-export default {
-};
+import './style/style.css'
 </script>
+
