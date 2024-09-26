@@ -1,17 +1,20 @@
 <template>
-    <div id="login" @click="gotoPage">这里是登录页面</div>
+  <coman />
+  <div id="login" @click="gotoPage">这里是登录页面</div>
 </template>
 <script>
-
+import coman from "./coman.vue";
 export default {
- methods:{
-     gotoPage(){
-         this.$router.push("/detail")
-     }
- }
-}
+  components: {
+    coman,
+  },
+  methods: {
+    gotoPage() {
+      this.$router.push("/detail");
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
-
-@import url('../style/style.less');
+@import url("../style/style.less");
 </style>

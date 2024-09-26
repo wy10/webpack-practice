@@ -1,7 +1,3 @@
 <template>
-    <div id="login">vite</div>
+  <router-view></router-view>
 </template>
-<script>
-import './style/style.css'
-</script>
-
