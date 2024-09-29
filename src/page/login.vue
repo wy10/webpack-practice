@@ -1,17 +1,11 @@
 <template>
-    <div id="login" @click="gotoPage">这里是登录页面</div>
+  <div id="login" @click="() => emits('login', 'success')">{{ text }}</div>
 </template>
-<script>
-
-export default {
- methods:{
-     gotoPage(){
-         this.$router.push("/detail")
-     }
- }
-}
+<script setup>
+const emits = defineEmits(["login"]);
+const props = defineProps({
+  text: {
+    type: String,
+  },
+});
 </script>
-<style lang="less" scoped>
-
-@import url('../style/style.less');
-</style>
