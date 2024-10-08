@@ -1,21 +1,56 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader/dist/index");
-// const ReplaceAttributesPlugin = require("./replaceAttributesPlugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: {
+    login0: "./src/page/login/index.js",
+    login2: "./src/page/login2/index.js",
+  },
   output: {
-    filename: "[name].js",
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].chunck.[contenthash:4].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
+  // externals: {
+  //   vue: "Vue", //从外部加载会迟缓
+  // },
+  optimization: {
+    // 拆分代码
+    moduleIds: "deterministic",
+    minimizer: [new CssMinimizerPlugin()], //只在production环境下有效
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+          enforce: true,
+        },
+        utils: {
+          name: "utils", // 指定包名，不指定时使用上层key作为包名
+          test: /utils/,
+          chunks: "all",
+          minSize: 10,
+          priority: 0,
+        },
+      },
+    },
+  },
   module: {
     rules: [
-      // {
-      //   test: /\.vue$/,
-      //   loader: "vue-loader",
-      // },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.less$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
+      },
       {
         test: /\.vue$/,
         use: [
@@ -36,11 +71,26 @@ module.exports = {
     //   propName: "@gotoPage",
     //   anotherProp: "@login",
     // }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      title: "plugin",
-      template: "index.html",
+      title: "登录首页",
+      template: "./index.html",
       filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      title: "login0",
+      template: "./src/page/login/index.html",
+      filename: "login0.html",
+      chunks: ["login0"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "login2",
+      template: "./src/page/login2/index.html",
+      filename: "login2.html",
+      chunks: ["login2"],
     }),
   ],
   devServer: {

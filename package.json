@@ -6,19 +6,26 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
-    "build": "webpack",
+    "build": "webpack --config webpack.config.js",
     "start": "http-server dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "html-webpack-plugin": "^5.6.0",
-    "vue": "^3.5.10"
+    "less": "^4.2.0",
+    "pinia": "^2.2.4",
+    "terser-webpack-plugin": "^5.3.10",
+    "vue": "^3.5.10",
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.5.10",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "less-loader": "^12.2.0",
+    "mini-css-extract-plugin": "^2.9.1",
     "vue-loader": "^17.3.1",
-    "webpack": "^5.47.0",
+    "webpack": "^5.95.0",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^4.7.0"
   }
