@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader/dist/index");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const RemoveUnusedComponentsPlugin = require("./RemoveUnusedFilesPlugin");
 
 module.exports = {
   mode: "development",
@@ -29,6 +30,7 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
           chunks: "all",
+          minSize: 2000,
           enforce: true,
         },
         utils: {
@@ -50,6 +52,12 @@ module.exports = {
       {
         test: /\.less$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
+        // include: path.resolve(__dirname, "src"),
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        // include: path.resolve(__dirname, "src"),
       },
       {
         test: /\.vue$/,
@@ -71,6 +79,9 @@ module.exports = {
     //   propName: "@gotoPage",
     //   anotherProp: "@login",
     // }),
+    new RemoveUnusedComponentsPlugin({
+      componentDir: path.resolve(__dirname, "src"), // 指定组件目录
+    }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "element-plus": "^2.8.4",
     "less": "^4.2.0",
     "pinia": "^2.2.4",
     "terser-webpack-plugin": "^5.3.10",
